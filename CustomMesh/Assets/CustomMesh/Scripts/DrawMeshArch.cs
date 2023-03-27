@@ -8,10 +8,12 @@ public class DrawMeshArch : MonoBehaviour
 {
     public bool isEnableMeshCollider = false;
     public float radius = 1;
+    [Range(0, 1)][Tooltip("圆环厚度")]
     public float thickness = 0.5f;  // 厚度
     public int smooth = 6;          // 平滑度：边的数量
     [Range(0,360)]
     public float size = 120;        // 圆环角度
+    [Tooltip("圆环深度(Z轴)")]
     public float depth = 1;         // 深度(Z轴)
 
     MeshFilter meshFilter;
@@ -59,8 +61,8 @@ public class DrawMeshArch : MonoBehaviour
             for (int i = 0; i < verticesCount; i += 2)
             {
                 float u_pos = (i / 2) / (float)smooth;
-                list_uv.Add(new Vector2(u_pos, 0));
                 list_uv.Add(new Vector2(u_pos, 1));
+                list_uv.Add(new Vector2(u_pos, 0));
             }
 
             // 三角形,按照顶点顺时针方向，如果逆时针则需要翻转到背面才能看到贴图
@@ -74,6 +76,45 @@ public class DrawMeshArch : MonoBehaviour
                 list_triangles.Add(firstNum + 2);
                 list_triangles.Add(firstNum + 3);
                 list_triangles.Add(firstNum + 1);
+            }
+        }
+
+        // 背面
+        {
+            int verticesCount = smooth / 2 * 4 + 2;
+
+            // 顶点
+            for (int i = 0; i < verticesCount; i += 2)
+            {
+                float curAngle = -size / 2 + (i / 2) * ereryAngle;
+                list_vertices.Add(new Vector3(Mathf.Sin(Mathf.Deg2Rad * curAngle) * radius, Mathf.Cos(Mathf.Deg2Rad * curAngle) * radius, depth));
+                list_vertices.Add(new Vector3(Mathf.Sin(Mathf.Deg2Rad * curAngle) * (radius - thickness), Mathf.Cos(Mathf.Deg2Rad * curAngle) * (radius - thickness), depth));
+            }
+
+            // uv
+            for (int i = 0; i < verticesCount; i += 2)
+            {
+                float u_pos = (i / 2) / (float)smooth;
+                list_uv.Add(new Vector2(u_pos, 1));
+                list_uv.Add(new Vector2(u_pos, 0));
+            }
+
+            // 三角形,按照顶点顺时针方向，如果逆时针则需要翻转到背面才能看到贴图
+            int trianglesCount = smooth * 2 * 3;
+            int curIndex = list_triangles[list_triangles.Count - 2] + 1;
+            for (int i = 0; i <= trianglesCount - 6; i += 6)
+            {
+                int firstNum = curIndex + i / 3;
+
+                // 这三个上下顺序倒过来
+                list_triangles.Add(firstNum + 1);
+                list_triangles.Add(firstNum + 2);
+                list_triangles.Add(firstNum);
+
+                // 这三个上下顺序倒过来
+                list_triangles.Add(firstNum + 1);
+                list_triangles.Add(firstNum + 3);
+                list_triangles.Add(firstNum + 2);
             }
         }
 
