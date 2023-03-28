@@ -38,7 +38,7 @@ public class DrawMeshCylinder : MonoBehaviour
 
         // 侧面
         {
-            // 顶点
+            // 顶点,为什么i <= smooth?因为需要首尾相接，所以需要多出两个顶点
             for (int i = 0; i <= smooth; i++)
             {
                 // 为什么+90?因为0度坐标为(1,0)，而这里希望0度坐标为(0,1)
@@ -77,7 +77,7 @@ public class DrawMeshCylinder : MonoBehaviour
 
             // 顶点
             {
-                list_vertices.Add(new Vector3(0,height / 2f,0));
+                list_vertices.Add(new Vector3(0, height / 2f, 0));
                 for (int i = 0; i < smooth; i++)
                 {
                     float curAngle = 360f / smooth * i + 90;

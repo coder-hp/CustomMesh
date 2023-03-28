@@ -38,78 +38,81 @@ public class DrawMeshCone : MonoBehaviour
 
         // 侧面
         {
-            // 顶点
+            list_vertices.Add(new Vector3(0, height, 0));
+
+            // 顶点,为什么i <= smooth?因为需要首尾相接，所以需要多出两个顶点
             for (int i = 0; i <= smooth; i++)
             {
                 // 为什么+90?因为0度坐标为(1,0)，而这里希望0度坐标为(0,1)
                 // 而且这里的坐标系正方向为逆时针，所以需要+90
                 float curAngle = 360f / smooth * i + 90;
-                list_vertices.Add(new Vector3(Mathf.Cos(Mathf.Deg2Rad * curAngle) * radius, height / 2f, Mathf.Sin(Mathf.Deg2Rad * curAngle) * radius));
-                list_vertices.Add(new Vector3(Mathf.Cos(Mathf.Deg2Rad * curAngle) * radius, -height / 2f, Mathf.Sin(Mathf.Deg2Rad * curAngle) * radius));
+                list_vertices.Add(new Vector3(Mathf.Cos(Mathf.Deg2Rad * curAngle) * radius, 0, Mathf.Sin(Mathf.Deg2Rad * curAngle) * radius));
             }
 
             // uv
-            for (int i = 0; i <= smooth; i++)
             {
-                list_uv.Add(new Vector2((float)i / smooth, 1));
-                list_uv.Add(new Vector2((float)i / smooth, 0));
+                list_uv.Add(new Vector2(0.5f,1));
+                for (int i = 0; i <= smooth; i++)
+                {
+                    list_uv.Add(new Vector2((float)i / smooth, 0));
+                }
             }
 
             // 三角形
             {
                 for (int i = 0; i < smooth; i++)
                 {
-                    int firstNum = i * 2;
-                    list_triangles.Add(firstNum);
-                    list_triangles.Add(firstNum + 2);
-                    list_triangles.Add(firstNum + 1);
-
-                    list_triangles.Add(firstNum + 2);
-                    list_triangles.Add(firstNum + 3);
-                    list_triangles.Add(firstNum + 1);
-                }
-            }
-        }
-        
-        // 底部
-        {
-            int verticesCount = 1 + smooth;
-
-            // 顶点
-            {
-                list_vertices.Add(new Vector3(0, -height / 2f, 0));
-                for (int i = 0; i < smooth; i++)
-                {
-                    float curAngle = 360f / smooth * i + 90;
-                    list_vertices.Add(new Vector3(Mathf.Cos(Mathf.Deg2Rad * curAngle) * radius, -height / 2f, Mathf.Sin(Mathf.Deg2Rad * curAngle) * radius));
-                }
-            }
-
-            // uv
-            {
-                list_uv.Add(new Vector2(0.5f, 0.5f));
-                for (int i = 0; i < smooth; i++)
-                {
-                    float curAngle = 360f / smooth * i + 90;
-                    list_uv.Add(new Vector2(Mathf.Cos(Mathf.Deg2Rad * curAngle) / 2f, Mathf.Sin(Mathf.Deg2Rad * curAngle) / 2f) + new Vector2(0.5f, 0.5f));
-                }
-            }
-
-            // 三角形,底部需要逆时针
-            {
-                for (int i = 0; i < smooth - 1; i++)
-                {
-                    list_triangles.Add(list_vertices.Count - verticesCount + 0 + i + 1);
-                    list_triangles.Add(list_vertices.Count - verticesCount + 0 + i + 2);
-                    list_triangles.Add(list_vertices.Count - verticesCount + 0);
+                    list_triangles.Add(0);
+                    list_triangles.Add(i + 2);
+                    list_triangles.Add(i + 1);
                 }
 
                 // 首尾相接
-                list_triangles.Add(list_vertices.Count - verticesCount + smooth);
-                list_triangles.Add(list_vertices.Count - verticesCount + 1);
-                list_triangles.Add(list_vertices.Count - verticesCount + 0);
+                list_triangles.Add(0);
+                list_triangles.Add(smooth + 1);
+                list_triangles.Add(smooth);
             }
         }
+        
+        //// 底部
+        //{
+        //    int verticesCount = 1 + smooth;
+
+        //    // 顶点
+        //    {
+        //        list_vertices.Add(new Vector3(0, -height / 2f, 0));
+        //        for (int i = 0; i < smooth; i++)
+        //        {
+        //            float curAngle = 360f / smooth * i + 90;
+        //            list_vertices.Add(new Vector3(Mathf.Cos(Mathf.Deg2Rad * curAngle) * radius, -height / 2f, Mathf.Sin(Mathf.Deg2Rad * curAngle) * radius));
+        //        }
+        //    }
+
+        //    // uv
+        //    {
+        //        list_uv.Add(new Vector2(0.5f, 0.5f));
+        //        for (int i = 0; i < smooth; i++)
+        //        {
+        //            float curAngle = 360f / smooth * i + 90;
+        //            list_uv.Add(new Vector2(Mathf.Cos(Mathf.Deg2Rad * curAngle) / 2f, Mathf.Sin(Mathf.Deg2Rad * curAngle) / 2f) + new Vector2(0.5f, 0.5f));
+        //        }
+        //    }
+
+        //    // 三角形,底部需要逆时针
+        //    {
+        //        for (int i = 0; i < smooth - 1; i++)
+        //        {
+        //            list_triangles.Add(list_vertices.Count - verticesCount + 0 + i + 1);
+        //            list_triangles.Add(list_vertices.Count - verticesCount + 0 + i + 2);
+        //            list_triangles.Add(list_vertices.Count - verticesCount + 0);
+        //        }
+
+        //        // 首尾相接
+        //        list_triangles.Add(list_vertices.Count - verticesCount + smooth);
+        //        list_triangles.Add(list_vertices.Count - verticesCount + 1);
+        //        list_triangles.Add(list_vertices.Count - verticesCount + 0);
+        //    }
+        //}
 
         Mesh mesh = new Mesh()
         {
