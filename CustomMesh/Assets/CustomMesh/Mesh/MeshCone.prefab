@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 1
-  height: 1
-  smooth: 6
+  height: 2.46
+  smooth: 10
   isEnableMeshCollider: 0
 --- !u!23 &3028180424667789282
 MeshRenderer:
