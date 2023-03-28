@@ -7,15 +7,15 @@ using UnityEngine;
 public class DrawMeshArch : MonoBehaviour
 {
     public bool isEnableMeshCollider = false;
-    public float radius = 1;
+    public float radius = 1;                    // 半径
     [Range(0, 1)][Tooltip("圆环厚度")]
-    public float thickness = 0.5f;  // 厚度
-    public int smooth = 6;          // 平滑度：边的数量
+    public float thickness = 0.5f;              // 厚度
+    public int smooth = 6;                      // 平滑度：边的数量
     [Range(0,360)]
-    public float size = 120;        // 圆环角度
+    public float size = 120;                    // 圆环角度
     [Tooltip("圆环深度(Z轴)")]
-    public float depth = 1;         // 深度(Z轴)
-
+    public float depth = 1;                     // 深度(Z轴)
+    
     MeshFilter meshFilter;
     MeshCollider meshCollider;
 

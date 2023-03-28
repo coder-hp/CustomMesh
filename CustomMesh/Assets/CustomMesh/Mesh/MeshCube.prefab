@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6281222032627187271}
-  - component: {fileID: 1460745594}
+  - component: {fileID: 923313368}
   - component: {fileID: 6281222032627187268}
-  - component: {fileID: 5529723463885785534}
-  - component: {fileID: 3112083050437193455}
+  - component: {fileID: -9104459826865172996}
+  - component: {fileID: 6187401434695779442}
   m_Layer: 0
-  m_Name: MeshArch
+  m_Name: MeshCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1460745594
+--- !u!114 &923313368
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,15 +44,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6281222032627187273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf7c82fa0d4a66542919e82023c578cc, type: 3}
+  m_Script: {fileID: 11500000, guid: d4e583c0f3d202c469c51f6ce5f63e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnableMeshCollider: 1
-  radius: 1
-  thickness: 0.318
-  smooth: 16
-  size: 181
-  depth: 0.5
+  size: {x: 1, y: 1, z: 1}
+  isEnableMeshCollider: 0
 --- !u!23 &6281222032627187268
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -95,7 +91,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &5529723463885785534
+--- !u!33 &-9104459826865172996
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,7 +99,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6281222032627187273}
   m_Mesh: {fileID: 0}
---- !u!64 &3112083050437193455
+--- !u!64 &6187401434695779442
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,9 +107,9 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6281222032627187273}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
